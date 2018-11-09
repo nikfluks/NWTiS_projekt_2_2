@@ -1,0 +1,86 @@
+.sveTablice{  
+    margin-top: 10px;
+    border-collapse: inherit;
+    border-style: solid;
+}
+.sveTabliceZaglavlje{
+    text-align:center;
+    background:none repeat scroll 0 0 lightgray;
+    border-bottom:1px solid #BBBBBB;
+    padding:16px;
+}
+.sveTabliceNeparni{
+    text-align:center;
+    background:none repeat scroll 0 0 #FFFFFF;
+    border-top:1px solid #BBBBBB;
+}
+.sveTabliceParni{
+    text-align:center;
+    background:none repeat scroll 0 0 #F9F9F9;
+    border-top:1px solid #BBBBBB;
+}
+.sveTabliceScroll{
+    overflow-y: auto;
+    height: 360px;
+    width: fit-content;
+    margin-bottom: 20px;
+}
+.pimLabelaMojaParkiralista{
+    margin-left: 4px;
+}
+.pimGumbovi{
+    width: 65px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+.sveGreska{
+    color: red;
+    font-size: 16px;
+}
+.sveUspjeh{
+    color: green;
+    font-size: 16px;
+}
+.svePadajuciIzbornik{
+    min-width: 120px;
+}
+.sveLabeleUzInput{
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+    margin-right: 2px;
+}
+.pimLabeleUzInputDodaj{
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+    margin-right: 2px;
+    line-height: 40px;
+}
+.sveGumbovi:hover{
+    text-decoration: underline;
+}
+.pimGumbDodaj{
+    margin-top: 10px;
+}
+.pimMeteoPodaci{
+    margin-left: 25px;
+    margin-top: -200px;
+}
+.pimMeteoPod{
+    max-width: 90%;
+}
+.prijavaNaslov{
+    margin-left: 50px;
+}
+.prijavaGumb{
+    margin-left: 102px;
+}
+.prijavaLozinka{
+    line-height: 40px;
+    margin-bottom: 5px;
+}
+.registracijaRazmak{
+    line-height: 30px;
+    margin-bottom: 5px; 
+}

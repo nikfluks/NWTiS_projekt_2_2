@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <ui:composition template="./predlozak.xhtml">
+            <ui:define name="naslov">
+                NWTiS - #{p['navigacija.pim']}
+            </ui:define>
+            <ui:define name="top">
+                NWTiS - #{p['navigacija.pim']}
+            </ui:define>
+            <ui:define name="content">
+                <h:form>
+                    <h:outputLabel value="#{p['labela.parkiralista.sva']}"/>
+                    <h:panelGroup id="svaParkiralista" layout="block" class="sveTabliceScroll">
+                        <h:dataTable value="#{pim.svaParkiralista}"
+                                     var="par"
+                                     styleClass="sveTablice"
+                                     headerClass="sveTabliceZaglavlje"
+                                     rowClasses="sveTabliceNeparni,sveTabliceParni"
+                                     cellpadding="5px">
+                            <h:column>
+                                <f:facet name="header">Id</f:facet>
+                                    #{par.id}
+                            </h:column>                            
+                            <h:column>
+                                <f:facet name="header">#{p['labela.naziv']}</f:facet>
+                                    #{par.naziv}
+                            </h:column>                            
+                            <h:column>
+                                <f:facet name="header">#{p['labela.adresa']}</f:facet>
+                                    #{par.adresa}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">#{p['tablica.latitude']}</f:facet>
+                                    #{par.geolokacija.latitude}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">#{p['tablica.longitude']}</f:facet>
+                                    #{par.geolokacija.longitude}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">#{p['labela.bpm']}</f:facet>
+                                    #{par.brojParkirnihMjesta}
+                            </h:column>
+                        </h:dataTable>
+                    </h:panelGroup>
+
+                    <h:outputLabel id="greska" class="sveGreska" value="#{pim.greska}"/>
+                    <h:outputLabel id="uspjeh" class="sveUspjeh" value="#{pim.uspjeh}"/>
+                    <br/><br/>
+
+                    <h:outputLabel value="#{p['labela.parkiralista.moja']}" class="pimLabelaMojaParkiralista"/>
+                    <h:panelGrid columns="4">
+                        <h:panelGroup>
+                            <h:selectManyListbox id="odabranaParkiralista" size="8" 
+                                                 value="#{pim.odabranaParkiralista}"
+                                                 class="svePadajuciIzbornik">
+                                <f:selectItems value="#{pim.parkiralistaKorisnika}" var="pk" 
+                                               itemLabel="#{pk.labela}" itemValue="#{pk.vrijednost}" />
+                                <f:ajax event="click" listener="#{pim.prikaziGumbove()}" 
+                                        execute="" render="gumbovi gumbovi2"/>
+                            </h:selectManyListbox>
+                        </h:panelGroup>
+                        <h:panelGrid id="gumbovi" style="visibility:#{(pim.prikazGumbova)?'visible':'hidden'}">
+                            <h:commandButton class="pimGumbovi sveGumbovi" value="#{p['gumb.obrisi']}" 
+                                             action="#{pim.obrisiParkiraliste()}">
+                                <f:ajax execute="odabranaParkiralista" render="svaParkiralista odabranaParkiralista greska uspjeh"/>
+                            </h:commandButton>
+                            <h:commandButton class="pimGumbovi sveGumbovi" value="#{p['gumb.aktiviraj']}" 
+                                             action="#{pim.aktivirajParkiraliste()}">
+                                <f:ajax execute="odabranaParkiralista" render="greska uspjeh"/>
+                            </h:commandButton>                
+                            <h:commandButton class="pimGumbovi sveGumbovi" value="#{p['gumb.blokiraj']}" 
+                                             action="#{pim.blokirajParkiraliste()}">
+                                <f:ajax execute="odabranaParkiralista" render="greska uspjeh"/>
+                            </h:commandButton>
+                            <h:commandButton class="pimGumbovi sveGumbovi" value="#{p['gumb.parkiraliste.status']}" 
+                                             action="#{pim.pregledStatusaParkiralista()}">
+                                <f:ajax execute="odabranaParkiralista" render="greska uspjeh"/>
+                            </h:commandButton>
+                        </h:panelGrid>
+                        <h:panelGrid id="gumbovi2" style="visibility:#{(pim.prikazGumbova)?'visible':'hidden'}">
+                            <h:commandButton class="pimGumbovi sveGumbovi" value="#{p['gumb.parkiraliste.vozila']}" 
+                                             action="#{pim.pregledVozilaParkiralista()}">
+                                <f:ajax execute="odabranaParkiralista" render="greska uspjeh vozila"/>
+                            </h:commandButton>
+                            <h:commandButton class="pimGumbovi sveGumbovi" value="#{p['gumb.meteo.zadnji']}" 
+                                             action="#{pim.dohvatiZadnjeMeteoPodatke()}">
+                                <f:ajax execute="odabranaParkiralista" render="greska uspjeh meteoPodaci"/>
+                            </h:commandButton>
+                            <h:commandButton class="pimGumbovi sveGumbovi" value="#{p['gumb.meteo.vazeci']}" 
+                                             action="#{pim.dohvatiVazeceMeteoPodatke()}">
+                                <f:ajax execute="odabranaParkiralista" render="greska uspjeh meteoPodaci"/>
+                            </h:commandButton>
+                            <h:commandButton class="pimGumbovi sveGumbovi" value="#{p['gumb.prebaci']}" 
+                                             action="#{pim.prebaciZaAzuriranje()}">
+                                <f:ajax execute="odabranaParkiralista" render="greska uspjeh naziv adresa bpm azuriraj"/>
+                            </h:commandButton>
+                        </h:panelGrid>
+                        <h:panelGroup>
+                            <h:panelGrid columns="3">
+                                <h:outputLabel class="pimLabeleUzInputDodaj" for="naziv" value="#{p['labela.naziv']}"/>
+                                <h:inputText id="naziv" value="#{pim.nazivParkiralista}"/>
+                                <h:outputText value="" rendered="true"/>
+
+                                <h:outputLabel class="pimLabeleUzInputDodaj" for="adresa" value="#{p['labela.adresa']}"/>
+                                <h:inputText id="adresa" value="#{pim.adresaParkiralista}"/>
+                                <h:commandButton id="azuriraj" class="pimGumbovi sveGumbovi" value="#{p['gumb.azuriraj']}" 
+                                                 action="#{pim.azurirajParkiraliste()}"
+                                                 style="visibility:#{(pim.prikazGumbaAzuriraj)?'visible':'hidden'}">
+                                    <f:ajax execute="naziv adresa bpm" 
+                                            render="greska uspjeh svaParkiralista odabranaParkiralista naziv adresa bpm azuriraj"/>
+                                </h:commandButton>
+
+                                <h:outputLabel class="pimLabeleUzInputDodaj" for="bpm" value="#{p['labela.bpm']}"/>
+                                <h:inputText id="bpm" value="#{pim.brojParkirnihMjesta}"/>
+                                <h:commandButton class="pimGumbovi sveGumbovi pimGumbDodaj" value="#{p['gumb.dodaj']}" 
+                                                 action="#{pim.dodajParkiraliste()}">
+                                    <f:ajax execute="naziv adresa bpm" 
+                                            render="greska uspjeh svaParkiralista odabranaParkiralista naziv adresa bpm"/>
+                                </h:commandButton>
+                            </h:panelGrid>
+                        </h:panelGroup>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2">
+                        <h:panelGroup id="vozila" layout="block" class="sveTabliceScroll" 
+                                      style="display:#{(pim.prikazVozila)?'block':'none'}">
+                            <h:dataTable value="#{pim.vozilaParkiralista}"
+                                         var="v"
+                                         styleClass="sveTablice"
+                                         headerClass="sveTabliceZaglavlje"
+                                         rowClasses="sveTabliceNeparni,sveTabliceParni"
+                                         cellpadding="5px">
+                                <h:column>
+                                    <f:facet name="header">#{p['tablica.parkiraliste.id']}</f:facet>
+                                        #{v.parkiraliste}
+                                </h:column>                            
+                                <h:column>
+                                    <f:facet name="header">#{p['tablica.registracija']}</f:facet>
+                                        #{v.registracija}
+                                </h:column>                            
+                                <h:column>
+                                    <f:facet name="header">#{p['tablica.akcija']}</f:facet>
+                                        #{v.akcija}
+                                </h:column>
+                            </h:dataTable>
+                        </h:panelGroup>
+                        <h:panelGroup id="meteoPodaci" layout="span" class="pimMeteoPodaci"
+                                      style="display:#{(pim.prikazMeteoPodataka)?'block':'none'}">
+                            <h:dataTable id="meteoPodaciTabica" 
+                                         value="#{pim.listaMeteoPodataka}" 
+                                         var="mp"
+                                         class="pimMeteoPod"
+                                         styleClass="sveTablice"
+                                         headerClass="sveTabliceZaglavlje"
+                                         rowClasses="sveTabliceNeparni,sveTabliceParni"
+                                         cellpadding="5px">
+                                <h:column>
+                                    <f:facet name="header">#{p['tablica.preuzeto']}</f:facet>
+                                    <h:outputText value="#{mp.lastUpdate.toGregorianCalendar().time}">
+                                        <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" timeZone="Europe/Zagreb"/>
+                                    </h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">#{p['tablica.vrijeme']}</f:facet>
+                                        #{mp.cloudsName}
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">#{p['tablica.vrijeme.opis']}</f:facet>
+                                        #{mp.weatherValue}
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">#{p['tablica.temp.min']}</f:facet>
+                                        #{mp.temperatureMin}°C
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">#{p['tablica.temp']}</f:facet>
+                                        #{mp.temperatureValue}°C
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">#{p['tablica.temp.max']}</f:facet>
+                                        #{mp.temperatureMax}°C
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">#{p['tablica.tlak']}</f:facet>
+                                        #{mp.pressureValue}hPa
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">#{p['tablica.vlaga']}</f:facet>
+                                        #{mp.humidityValue}%
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">#{p['tablica.vjetar.brzina']}</f:facet>
+                                    #{mp.windSpeedValue}m/s
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">#{p['tablica.vjetar.smjer']}</f:facet>
+                                    #{mp.windDirectionValue}°
+                                </h:column>
+                            </h:dataTable>
+                        </h:panelGroup>
+                    </h:panelGrid>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

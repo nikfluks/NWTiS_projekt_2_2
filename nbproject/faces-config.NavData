@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="posluziteljIGrupa.xhtml" x="910" y="532" zoom="true"/>
+        <Node id="pregledDnevnik.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="predlozak.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="parkiralistaIMeteo.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="pregledEmail.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="prijava.xhtml" x="932" y="425" zoom="true"/>
+        <Node id="pregledMQTT.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="registracija.xhtml" x="915" y="236" zoom="true"/>
+        <Node id="jezik.xhtml" x="650" y="300" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>

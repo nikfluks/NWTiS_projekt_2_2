@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <body>
+        <ui:composition template="./predlozak.xhtml">
+            <ui:define name="naslov">
+                NWTiS - #{p['navigacija.registracija']}
+            </ui:define>
+            <ui:define name="top">
+                NWTiS - #{p['navigacija.registracija']}
+            </ui:define>
+            <ui:define name="content">
+                <h:form>
+                    <h2 class="prijavaNaslov">#{p['navigacija.registracija']}</h2>
+                    <h:outputLabel class="sveLabeleUzInput registracijaRazmak" value="#{p['prijava.korisnickoIme']}" for="korIme"/>
+                    <h:inputText id="korIme" value="#{registracija.korisnickoIme}"></h:inputText>
+                    <br/> 
+                    <h:outputLabel class="sveLabeleUzInput registracijaRazmak" value="#{p['reg.ime']}" for="ime"/>
+                    <h:inputText id="ime" value="#{registracija.ime}"></h:inputText>
+                    <br/> 
+                    <h:outputLabel class="sveLabeleUzInput registracijaRazmak" value="#{p['reg.prezime']}" for="prezime"/>
+                    <h:inputText id="prezime" value="#{registracija.prezime}"></h:inputText>
+                    <br/> 
+                    <h:outputLabel class="sveLabeleUzInput registracijaRazmak" value="#{p['prijava.lozinka']}" for="lozinka" />
+                    <h:inputSecret id="lozinka" value="#{registracija.lozinka}"></h:inputSecret>
+                    <br/> 
+                    <h:outputLabel class="sveLabeleUzInput registracijaRazmak" value="#{p['reg.ponoviLoz']}" for="lozinka2" />
+                    <h:inputSecret id="lozinka2" value="#{registracija.lozinkaPon}"></h:inputSecret>
+                    <br/> 
+                    <h:commandButton class="prijavaGumb"
+                                     action="#{registracija.registrirajSe()}"
+                                     value="#{p['reg.regSe']}">
+                    </h:commandButton>
+                    <br/><br/>
+                    <h:outputLabel id="greska" class="sveGreska prijavaGumb" value="#{registracija.greska}"/>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

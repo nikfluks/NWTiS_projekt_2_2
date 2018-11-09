@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <body>
+        <ui:composition template="./predlozak.xhtml">
+            <ui:define name="naslov">
+                NWTiS - #{p['navigacija.pig']}
+            </ui:define>
+            <ui:define name="top">
+                NWTiS - #{p['navigacija.pig']}
+            </ui:define>
+            <ui:define name="content">
+                <h:form>
+                    <h:commandButton class="sveGumbovi" value="#{p['posluzitelj.status']}" action="#{pig.dohvatiStanjePosluzitelja()}"/>
+                    <h:outputText value="&nbsp;&nbsp;"/>
+                    <h:commandButton class="sveGumbovi" value="#{p['posluzitelj.pauziraj']}" action="#{pig.pauzirajPosluzitelja()}"/>
+                    <h:outputText value="&nbsp;&nbsp;"/>
+                    <h:commandButton class="sveGumbovi" value="#{p['posluzitelj.kreni']}" action="#{pig.pokreniPosluzitelja()}"/>
+                    <h:outputText value="&nbsp;&nbsp;"/>
+                    <h:commandButton class="sveGumbovi" value="#{p['posluzitelj.pasiviraj']}" action="#{pig.pasivirajPosluzitelja()}"/>
+                    <h:outputText value="&nbsp;&nbsp;"/>
+                    <h:commandButton class="sveGumbovi" value="#{p['posluzitelj.aktiviraj']}" action="#{pig.aktivirajPosluzitelja()}"/>
+                    <h:outputText value="&nbsp;&nbsp;"/>
+                    <h:commandButton class="sveGumbovi" value="#{p['posluzitelj.stani']}" action="#{pig.zaustaviPosluzitelja()}"/>
+                    <br/><br/>
+                    <h:outputLabel id="greska" class="sveGreska" value="#{pig.greskaPosluzitelj}"/>
+                    <h:outputLabel id="uspjeh" class="sveUspjeh" value="#{pig.uspjehPosluzitelj}"/>
+                    <br/><br/>
+                    <h:commandButton class="sveGumbovi" value="#{p['grupa.status']}" action="#{pig.dohvatiStanjeGrupe()}"/>
+                    <h:outputText value="&nbsp;&nbsp;"/>
+                    <h:commandButton class="sveGumbovi" value="#{p['grupa.registriraj']}" action="#{pig.registrirajGrupu()}"/>
+                    <h:outputText value="&nbsp;&nbsp;"/>
+                    <h:commandButton class="sveGumbovi" value="#{p['grupa.deregistriraj']}" action="#{pig.deregistrirajGrupu()}"/>
+                    <h:outputText value="&nbsp;&nbsp;"/>
+                    <h:commandButton class="sveGumbovi" value="#{p['grupa.aktiviraj']}" action="#{pig.aktivirajGrupu()}"/>
+                    <h:outputText value="&nbsp;&nbsp;"/>
+                    <h:commandButton class="sveGumbovi" value="#{p['grupa.blokiraj']}" action="#{pig.blokirajGrupu()}"/>
+                    <br/><br/>
+                    <h:outputLabel id="greska2" class="sveGreska" value="#{pig.greskaGrupa}"/>
+                    <h:outputLabel id="uspjeh2" class="sveUspjeh" value="#{pig.uspjehGrupa}"/>
+                    <br/><br/><br/> <br/> <br/> 
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
